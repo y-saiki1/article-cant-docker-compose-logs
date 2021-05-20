@@ -1,0 +1,68 @@
+root = "."
+
+# airのログなどを管理する一時ディレクトリ。
+tmp_dir = "tmp"
+
+[build]  
+  # 実行バイナリ
+  bin = "./cmd/bin/main"
+
+  # アプリをコンパイルするコマンド
+  cmd = "go build -o ./cmd/bin/main ./cmd/main.go"
+
+  # cmdの実行タイミングを遅らせることができます。
+  # コードをいじってすぐcmd+sを押すような場合、コンパイルがすぐに走ってしまいますが、こちらを設定しておけばコンパイル回数を減らせるでしょう
+  delay = 1000
+
+  # airの監視から外しておくもの。assetsやtmpやvendorの変更がデフォルトでは監視対象外のようですね。
+  exclude_dir = ["assets", "tmp", "vendor"]
+
+  # airの監視から外しておくもの。exclude_dirと違って、こちらはファイル単位で対象外にできるようです。
+  exclude_file = []
+
+  # airの監視から外しておくもの。正規表現も使えるみたいですね。
+  exclude_regex = []
+
+  # 
+  exclude_unchanged = false
+
+  # ディレクトリのシンボリックリンクをたどる設定のようです。
+  # 今回の用途には必要ないと思います。（ReadMeではtrue）
+  follow_symlink = false
+
+  # 実行時に引数とか設定できるやつ。マイグレーションとかに使えそう。今回これは使いませんのでコメントアウト
+  # full_bin = "tmp/main up"
+
+  # 監視対象のホワイトリスト
+  include_dir = []
+
+  # 監視対象のホワイトリスト。拡張子の指定ができるみたい。
+  include_ext = ["go", "tpl", "tmpl", "html"]
+
+  # 割り込み信号送信後の遅延時間（秒）
+  kill_delay = "0s"
+
+  # 名前の通り、ビルドエラーのログファイルみたいです。tmp_dirにファイルが置かれるようです。
+  log = "build-errors.log"
+
+  # プロセスを強制終了する前に割り込み信号を送信する。windowsではサポートされていないらしい
+  send_interrupt = false
+
+  # ビルドエラーが発生したら古いバイナリの実行を停止する。
+  stop_on_error = true
+
+# これはカラー設定なので深くはみません
+[color]
+  app = ""
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
+
+# ログの時間を表示するかどうか
+[log]
+  time = false
+
+# 終了時にtmp_dirが存在したら削除するかどうか。いらないので削除するためtrueに変更しています
+[misc]
+  clean_on_exit = true
